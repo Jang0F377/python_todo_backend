@@ -1,0 +1,23 @@
+networks:
+  fastapi-network:
+    driver: bridge
+
+volumes:
+  postgres-data:
+
+services:
+  postgres-db:
+    image: postgres:latest
+    container_name: postgres-db
+    volumes:
+      - postgres-data:/var/lib/postgresql/data
+    networks:
+      - fastapi-network
+    environment:
+      POSTGRES_PASSWORD: "${DB_PASSWORD}"
+      POSTGRES_USER: "${DB_USER}"
+      POSTGRES_DB: "${DB_DATABASE}"
+    restart: unless-stopped
+    ports:
+      - 5432:5432
+# TODO: ADD service for project
