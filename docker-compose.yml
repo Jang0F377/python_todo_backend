@@ -6,9 +6,26 @@ volumes:
   postgres-data:
 
 services:
-  postgres-db:
+  todo-backend:
+    image: todo-backend:latest
+    container_name: todo-backend
+    env_file: ./.env
+    depends_on:
+      todo-db:
+        condition: service_healthy
+    build:
+      context: .
+      dockerfile: Dockerfile
+    networks:
+      - fastapi-network
+    volumes:
+      - .:/app
+    ports:
+      - 8000:8000
+
+  todo-db:
     image: postgres:latest
-    container_name: postgres-db
+    container_name: todo-db
     volumes:
       - postgres-data:/var/lib/postgresql/data
     networks:
@@ -18,6 +35,12 @@ services:
       POSTGRES_USER: "${DB_USER}"
       POSTGRES_DB: "${DB_DATABASE}"
     restart: unless-stopped
+    healthcheck:
+      test: ["CMD-SHELL", "pg_isready -d ${DB_DATABASE} -U ${DB_USER}"]
+      interval: 20s
+      timeout: 30s
+      retries: 5
+      start_period: 15s
     ports:
       - 5432:5432
 # TODO: ADD service for project
