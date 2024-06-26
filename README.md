@@ -49,3 +49,14 @@ DB_URL = postgresql+psycopg2://root:badPass12345@localhost/main
   `docker compose up -d --build todo-db`
 - You can start the backend locally with the following command:  
   `uvicorn src.main:app --reload --env-file .env`
+
+## Extra stipulations:
+
+If you happen to be testing the API via an API testing platform such as Postman or Insomnia:
+
+- `/login` endpoint: It takes multipart/form-data with two fields named: `username` and `password`
+- any endpoints requiring authentication (listed below) will be expecting a **Bearer Token** auth type.
+  - `GET`: `/users/me/`
+  - `GET`: `/todos/me/`
+  - `POST`: `/todos/`
+  - `POST`: `/todos/{todo_id}/completed`
