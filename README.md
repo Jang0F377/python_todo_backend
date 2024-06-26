@@ -41,7 +41,11 @@ DB_URL = postgresql+psycopg2://root:badPass12345@todo-db/main
 DB_URL = postgresql+psycopg2://root:badPass12345@localhost/main
 ```
 
-- `pip install -r requirements.txt`
-- Start Postgres in docker: `docker compose up -d --build todo-db`
-- You can start the backend locally with the following command:
+> Note: I used pipenv to handle virtual env.
+
+- `pipenv install -r requirements.txt`
+- `pipenv shell` - to open a shell in the virtual env.
+- Start Postgres in docker:  
+  `docker compose up -d --build todo-db`
+- You can start the backend locally with the following command:  
   `uvicorn src.main:app --reload --env-file .env`
