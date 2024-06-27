@@ -52,6 +52,10 @@ DB_URL = postgresql+psycopg2://root:badPass12345@localhost/main
 
 ## Extra stipulations:
 
+### Swagger Page
+
+`http://localhost:8000/docs`
+
 If you happen to be testing the API via an API testing platform such as Postman or Insomnia:
 
 - `/login` endpoint: It takes multipart/form-data with two fields named: `username` and `password`
